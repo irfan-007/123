@@ -1,0 +1,268 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Colorlib Templates">
+    <meta name="author" content="Colorlib">
+    <meta name="keywords" content="Colorlib Templates">
+
+    <!-- Title Page-->
+    <title>signup</title>
+
+    <!-- Icons font CSS-->
+    <link href="{% static 'accounts/vendor/mdi-font/css/material-design-iconic-font.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'accounts/vendor/font-awesome-4.7/css/font-awesome.min.css' %}" rel="stylesheet" media="all">
+    <!-- Font special for pages-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+
+    <!-- Vendor CSS-->
+    <link href="{% static 'accounts/vendor/select2/select2.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'accounts/vendor/datepicker/daterangepicker.css' %}" rel="stylesheet" media="all">
+
+    <!-- Main CSS-->
+    <link href="{% static 'accounts/css/main.css' %}" rel="stylesheet" media="all">
+</head>
+
+<body>
+    <div class="page-wrapper bg-gra-03 p-t-45 p-b-50">
+        <div class="wrapper wrapper--w790">
+            <div class="card card-5">
+                <div class="card-heading">
+                    <h2 class="title">SIGN-UP</h2>
+                </div>
+                <div class="card-body">
+                    <form method="POST">
+                        {% csrf_token %}
+
+                        <div class="form-row m-b-55">
+                            <div class="name">Name</div>
+                            <div class="value">
+                                <div class="row row-space">
+                                    <div class="col-2">
+                                        <div class="input-group-desc">
+                                            <input class="input--style-5" type="text" name="first_name" id="fname" placeholder="first name">
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="input-group-desc">
+                                            <input class="input--style-5" type="text" name="last_name" placeholder="last name" id="lname">
+                                        </div>
+                                    </div>
+                                    <h5 id="namecheck" style="color: red;display: none;"></h5>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="name">Password</div>
+                            <div class="value">
+                                <div class="input-group">
+                                    <input class="input--style-5" type="password" name="password" id="password" placeholder="password">
+                                    <h5 id="passcheck" style="color: red;display: none;"></h5>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="name">Repeat-Password</div>
+                            <div class="value">
+                                <div class="input-group">
+                                    <input class="input--style-5" type="password" name="password1" id="password1" placeholder="confirm password">
+                                    <h5 id="pass1check" style="color: red;display: none;"></h5>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="name">Email</div>
+                            <div class="value">
+                                <div class="input-group">
+                                    <input class="input--style-5" type="email" name="email" id="email" placeholder="email">
+                                    <h5 id="emailcheck" style="color: red;display: none;"></h5>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row m-b-55">
+                            <div class="name">Phone</div>
+                            <div class="value">
+                                <div class="row row-refine">
+                                    <div class="col-9">
+                                        <div class="input-group-desc">
+                                            <input class="input--style-5" type="text" name="phone" id="phone" placeholder="phone">
+                                            <h5 id="phonecheck" style="color: red;display: none;"></h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <button class="btn btn--radius-2 btn--green" type="button" id="buttn">Register</button>
+                            <button class="btn btn--radius-2 btn--red" type="button">
+                                <a href="/accounts/login/" style="text-decoration:none;color: white;">Log in</a>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Jquery JS-->
+    <script src="{% static 'accounts/vendor/jquery/jquery.min.js' %}"></script>
+    <!-- Vendor JS-->
+    <script src="{% static 'accounts/vendor/select2/select2.min.js' %}"></script>
+    <script src="{% static 'accounts/vendor/datepicker/moment.min.js' %}"></script>
+    <script src="{% static 'accounts/vendor/datepicker/daterangepicker.js' %}"></script>
+
+    <!-- Main JS-->
+    <script src="{% static 'accounts/js/global.js' %}"></script>
+    
+
+    <!-- jquery  and ajax -->
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <script type="text/javascript">
+        $(document).ready(function(){
+
+            $('#fname').keyup(function(){
+                namecheck()
+            })
+
+            $('#password').keyup(function(){
+                passcheck()
+            })
+
+            $('#password1').keyup(function(){
+                pass1check()
+            })
+
+            $('#phone').keyup(function(){
+                phonecheck()
+            })
+
+            $('#email').keyup(function(){
+                emailcheck()
+            })
+
+            var flag1=1,flag2=1,flag3=1,flag4=1,flag5=1
+
+            function namecheck(){
+                var name = $('#fname').val()
+                if(name==""){
+                    $('#namecheck').show()
+                    $('#namecheck').html(" *name must not empty !")
+                    flag1=1
+                }
+                else{
+                    $('#namecheck').hide()
+                    flag1=0
+                }
+            }
+
+            function passcheck(){
+                var pass = $('#password').val()
+                if(pass==""){
+                    $('#passcheck').show()
+                    $('#passcheck').html(" *password must not empty !")
+                    flag2=1
+                }
+                else{
+                    $('#passcheck').hide()
+                    flag2=0
+                }
+            }
+
+            function pass1check(){
+                var pass = $('#password').val()
+                var pass1 = $('#password1').val()
+                if(pass!=pass1){
+                    $('#pass1check').show()
+                    $('#pass1check').html(" *password  not matching !")
+                    flag3=1
+                }
+                else{
+                    $('#pass1check').hide()
+                    flag3=0
+                }
+            }
+
+            function emailcheck(){
+                var email = $('#email').val()
+                if(email==""){
+                    $('#emailcheck').show()
+                    $('#emailcheck').html(" *email must not empty !")
+                    flag4=1
+                }
+                else{
+                    $('#emailcheck').hide()
+                    flag4=0
+                }
+            }
+
+            function phonecheck(){
+                var phone = $('#phone').val()
+                if(phone.length !=10){
+                    $('#phonecheck').show()
+                    $('#phonecheck').html(" *phone number should be 10 digits !")
+                    flag5=1
+                }
+                else{
+                    $('#phonecheck').hide()
+                    flag5=0
+                }
+            }
+
+            if(flag1==0 && flag2==0 && flag3==0 && flag4==0 && flag5==0){
+                $('#buttn').click(function(){
+
+                    var data={
+                        'csrfmiddlewaretoken': '{{csrf_token}}',
+                        fname:$('#fname').val(),
+                        lname:$('#lname').val(),
+                        phone:$('#phone').val(),
+                        email:$('#email').val(),
+                        password:$('#password').val(),
+                        password1:$('#password1').val()
+                    }
+
+                    $.ajax({
+                    url: '/accounts/signup/' ,
+                    method:'POST',
+                    data:data,
+                    dataType:'json',      
+                    success:function(data){ 
+                    if(data.success){
+                    alert("user registered successfuly") 
+                    window.location.replace('/accounts/login/')
+                    }
+                    else{
+
+                    if(data.emailerror)
+                    {$('#emailcheck').html(" *email is already taken !")}
+                    else{$('#emailcheck').hide()}
+                    
+                    }
+                    
+                    }     
+                        
+                    });
+
+                })
+            }
+
+        });
+    </script>
+
+</body>
+
+</html>
+<!-- end document-->
